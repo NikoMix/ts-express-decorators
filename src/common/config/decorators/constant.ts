@@ -27,7 +27,7 @@ const clone = (o: any) => JSON.parse(JSON.stringify(o));
  * @returns {(targetClass: any, attributeName: string) => any}
  * @decorator
  */
-export function Constant(expression: string) {
+export function Constant(expression: string): any {
 
     return (target: any, propertyKey: string) => {
 
