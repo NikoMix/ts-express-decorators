@@ -27,9 +27,9 @@ export class MongooseService implements OnInit {
 
     $onInit(): Promise<any> | void {
         const promises: Promise<Mongoose.Mongoose>[] = [];
-        $log.info(`Initialize mongoose`, this.url);
+
         if (this.url) {
-            promises.push(this.connect("default", this.url, this.connectionOptions));
+            promises.push(this.connect("default", this.url, this.connectionOptions || {}));
         }
 
         if (this.urls) {
@@ -52,6 +52,8 @@ export class MongooseService implements OnInit {
         }
 
         $log.info(`Connect to mongo database: ${id}`);
+        $log.debug(`Url: ${url}`);
+        $log.debug(`options: ${JSON.stringify(connectionOptions)}`);
         const mongoose = await Mongoose.connect(url, connectionOptions);
 
         this._instances.set(id, mongoose);

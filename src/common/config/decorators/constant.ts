@@ -1,7 +1,12 @@
 import {getClass} from "@tsed/core";
 import {globalServerSettings} from "../services/GlobalSerttings";
 
-const clone = (o: any) => JSON.parse(JSON.stringify(o));
+const clone = (o: any) => {
+    if (o) {
+        return Object.freeze(JSON.parse(JSON.stringify(o)));
+    }
+    return undefined;
+};
 
 /**
  * Return value from ServerSettingsService.
@@ -32,14 +37,10 @@ export function Constant(expression: string): any {
     return (target: any, propertyKey: string) => {
 
         if (delete target[propertyKey]) {
-
-            let constant: any;
-
             const descriptor = {
 
                 get: function () {
-                    constant = constant !== undefined ? constant : Object.freeze(clone(globalServerSettings.get(expression)));
-                    return constant;
+                    return clone(globalServerSettings.get(expression));
                 },
 
                 enumerable: true,

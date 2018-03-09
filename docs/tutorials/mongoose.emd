@@ -1,8 +1,8 @@
-# @tsed/mongoose
-
+# Mongoose
 > Experimental feature. You can contribute to improve this feature !
 
-A package of Ts.ED framework. See website: https://romakita.github.io/ts-express-decorators/#/tutorials/mongoose
+
+This tutorials show you, how you can use mongoose package with Ts.ED. 
 
 Currently, `@tsed/mongoose` allows you to configure one or more MongoDB database connections via
 the `@ServerSettings` configuration.
@@ -68,3 +68,29 @@ export class Server extends ServerLoader {
 
 }
 ```
+
+## MongooseService
+
+MongooseService let you to retrieve an instance of Mongoose.Connection. 
+
+```typescript
+import {Service} from "@tsed/common";
+import {MongooseService} from "@tsed/mongoose";
+
+@Service()
+export class MyService {
+    
+    constructor(mongooseService: MongooseService) {
+        mongooseService.get(); // return the default instance of Mongoose.
+        // If you have one or more database configured with Ts.ED
+        mongooseService.get("db1");
+        mongooseService.get("db2");
+    }
+}
+```
+
+### API
+
+Ts.ED given some decorators and service to write your code:
+
+<%- components.apiList({label: "mongoose"}) %>
